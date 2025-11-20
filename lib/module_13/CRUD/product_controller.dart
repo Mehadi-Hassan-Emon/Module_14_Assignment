@@ -5,37 +5,37 @@ import 'package:flutter_13_new/module_13/CRUD/utils/urls.dart';
 import 'package:http/http.dart' as http;
 
 
-//read mane data paoya
+
 class ProductController{
 
-  List<Data> products =[];          //productmodel.fromjson e je data ta pass korsi oitai list er modde rakhsi
-  bool isLoading = true;           //app run hoyar ageh ekta load nibe
+  List<Data> products =[];         
+  bool isLoading = true;          
   Future fetchProducts() async {
-    final response = await http.get(Uri.parse(Urls.readProduct));         //urls holo urls file er modde urls name r ekta class ache oitar url gula paoyar jonno
+    final response = await http.get(Uri.parse(Urls.readProduct));         
     bool isLoding = false;
     if(response.statusCode == 200){
-       final data = jsonDecode(response.body);//jsondecode model class e dart covert,,and api call
-       ProductModel model = ProductModel.fromJson(data);       //productmodel holo json to dart e convert kora file tar je class e ache oita & fromjson er modde data ta pass korche
+       final data = jsonDecode(response.body);
+       ProductModel model = ProductModel.fromJson(data);       
        products = model.data ?? [];
      }
   }
   
-  //create   //button edit,add
+  //create   
   Future<bool>createProduct(Data data)async {
     final response = await http.post(Uri.parse(Urls.createProduct),
       headers: {
-      'Content-Type':'application/json'    //create er header theke add kore
+      'Content-Type':'application/json'    
       },
       body: jsonEncode(
-        {//create postman theke
-          "ProductName": data.productName,//productnam,qyt... eigula amra data je model make korsi oikhan theke paisi
+        {
+          "ProductName": data.productName,
           "ProductCode": DateTime.now().microsecondsSinceEpoch,
           "Img":data.img,
           "Qty":data.qty ,
           "UnitPrice":data.unitPrice ,
           "TotalPrice":data.totalPrice ,
         }
-      ),//jsonEncode  server e data pathaite and api request e data body banaite and save
+      ),
     );
     if(response.statusCode== 200){
       return true;
@@ -47,7 +47,7 @@ class ProductController{
 
   //delete   //button delete
 Future<bool>deleteProduct(String productId)async{
-    final response = await http.get(Uri.parse(Urls.deleteProduct(productId)));//delete e ekta id ke dore delte kore tai productId niche and type strimng niche
+    final response = await http.get(Uri.parse(Urls.deleteProduct(productId)));
 
     if(response.statusCode ==200){
       return true;
