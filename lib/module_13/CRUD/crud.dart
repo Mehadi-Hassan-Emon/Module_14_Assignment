@@ -1,4 +1,4 @@
-//previous class e amra api call kore data ana dekhsilam oita just name change kore crud
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -14,34 +14,26 @@ class Crud extends StatefulWidget {
 }
 
 class _APICallState extends State<Crud> {
-  ProductController controller =ProductController();//next page er productcontroller er access pete call
+  ProductController controller =ProductController();
 
 
-  @override//initstate call bcz app er login ba kono kaj er ageh inissate er maddome updated data pai eta use nah kore run dile data show korbe nah
+  @override
   void initState(){
     super.initState();
     fetchData();
   }
 
-//   Future fetchData () async {
-//    await ProductController().fetchProducts();
-//
-//    if(mounted)setState(() {
-//
-//    });
-// }
-
   Future fetchData() async {
     controller.isLoading = true;
-    setState(() {}); // show loader
+    setState(() {}); 
 
-    await controller.fetchProducts(); // fetch data into the same controller
+    await controller.fetchProducts(); 
 
     controller.isLoading = false;
-    if (mounted) setState(() {}); // refresh UI with products
+    if (mounted) setState(() {}); 
   }
 
-  //edit & add er jonno  ekhane textfield niche 6 ta bcz ekhane postman e data 6ta  ta name,qyt.........
+ 
   productDialog(){
     TextEditingController productNameController=TextEditingController();
     TextEditingController productIMGController=TextEditingController();
@@ -95,7 +87,7 @@ class _APICallState extends State<Crud> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(onPressed: (){
-                  Navigator.pop(context);//cancel diye back ashar jonno
+                  Navigator.pop(context);
                 }, child: Text('Cancel')),
                 ElevatedButton(onPressed: () async {
                   controller.createProduct(Data(
@@ -133,7 +125,7 @@ class _APICallState extends State<Crud> {
           ),
           itemCount: controller.products.length,
           itemBuilder: (context,index){
-            final item = controller.products[index];//products index eita text and img e bar bar likhte hoitase tai eta ekhane declear korsi item er bitore and oikhane just item likhle hobe
+            final item = controller.products[index];
             return Card(
               child: Container(
                 child: Column(
@@ -164,10 +156,9 @@ class _APICallState extends State<Crud> {
                         ),
                         IconButton(
                             onPressed: () async{
-                            await  controller.deleteProduct(item.sId.toString()).then((Value) async {   //item er sid diye oi item gula deleyte kora hoitase
+                            await  controller.deleteProduct(item.sId.toString()).then((Value) async {   
                               if(Value){
-                                await fetchData();//eta deyar mane first e delete korai delete succecc dekhai hoi nah eita use korai screen thkeke product delete hoi
-
+                                await fetchData();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(content: Text('Product Delete'))
                                 );
