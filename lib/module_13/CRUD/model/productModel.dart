@@ -1,8 +1,8 @@
-//////postman theke data ta copy kore niye google e json to dart file e convert kore ekhane model ta paste korse
+
 
 class ProductModel {
-  String? status;//status ssuccess
-  List<Data>? data;//data and model holo list type
+  String? status;
+  List<Data>? data;
 
   ProductModel({this.status, this.data});
 
@@ -44,7 +44,7 @@ class Data {
         this.unitPrice,
         this.totalPrice});
 
-  Data.fromJson(Map<String, dynamic> json) {//data gula separete kora
+  Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     productName = json['ProductName'];
     productCode = json['ProductCode'];
@@ -54,7 +54,7 @@ class Data {
     totalPrice = json['TotalPrice'];
   }
 
-  Map<String, dynamic> toJson() {//data r structure make kora
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['ProductName'] = this.productName;
